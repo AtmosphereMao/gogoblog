@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"fmt"
+	"myblog/lib/view"
 	"net/http"
 )
 
@@ -9,5 +9,8 @@ type IndexController struct {
 }
 
 func (*IndexController) Index(w http.ResponseWriter, r *http.Request){
-	fmt.Fprint(w, "<h1>Hello World</h1>")
+	data := "test"
+	view.Render(w, view.D{
+		"Data": data,
+	}, "index")
 }
