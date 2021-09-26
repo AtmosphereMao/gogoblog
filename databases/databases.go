@@ -1,13 +1,13 @@
 package databases
 
-import(
+import (
+	"gorm.io/gorm"
+	"myblog/app/models/article"
+	"myblog/app/models/category"
+	"myblog/app/models/user"
 	"myblog/core"
 	"myblog/lib/config"
 	"myblog/lib/helper"
-	"gorm.io/gorm"
-	"myblog/models/article"
-	"myblog/models/category"
-	"myblog/models/user"
 	"time"
 )
 

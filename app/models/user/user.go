@@ -1,7 +1,7 @@
 package user
 
-import(
-	"myblog/models"
+import (
+	"myblog/app/models"
 )
 
 type User struct {

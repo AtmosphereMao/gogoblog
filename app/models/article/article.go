@@ -1,8 +1,8 @@
 package article
 
 import (
-	"myblog/models"
-	"myblog/models/user"
+	"myblog/app/models"
+	"myblog/app/models/user"
 )
 
 type Article struct{

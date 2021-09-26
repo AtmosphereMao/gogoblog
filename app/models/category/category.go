@@ -1,6 +1,8 @@
 package category
 
-import "myblog/models"
+import (
+	"myblog/app/models"
+)
 
 type Category struct {
 	models.BaseModel
