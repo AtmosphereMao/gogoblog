@@ -1,8 +1,14 @@
 package main
 import (
 	"myblog/config"
+	"myblog/databases"
 )
 
-func main(){
+func init(){
 	config.Initialize()
+}
+
+func main(){
+	databases.InitDB()
+
 }
