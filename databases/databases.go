@@ -11,6 +11,8 @@ import (
 	"time"
 )
 
+var DB *gorm.DB
+
 func InitDB(){
 	db := core.ConnectDB()
 	sqlDB, _ := db.DB()
