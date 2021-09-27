@@ -17,4 +17,3 @@ func (*ArticlesController)Index(w http.ResponseWriter,r *http.Request){
 		"Articles": data,
 	}, "articles.articles")
 }
-

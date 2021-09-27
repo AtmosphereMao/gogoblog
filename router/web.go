@@ -4,6 +4,7 @@ import (
 	"github.com/gorilla/mux"
 	"myblog/app/http/controllers"
 	"myblog/app/http/controllers/articles"
+	"myblog/app/http/controllers/auth"
 	"net/http"
 )
 
@@ -11,6 +12,13 @@ func RegisterRouter(r *mux.Router){
 	// Index
 	ic := new(controllers.IndexController)
 	r.HandleFunc("/",	ic.Index).Methods("GET").Name("home")
+
+	// Auth
+	register := new(auth.RegisterController)
+	r.HandleFunc("/register", register.Index).Methods("GET").Name("auth.register")
+
+
+
 	// Articles
 	ac := new(articles.ArticlesController)
 	r.HandleFunc("/articles", ac.Index).Methods("GET").Name("articles.index")
