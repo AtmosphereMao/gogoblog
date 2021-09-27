@@ -16,7 +16,8 @@ func RegisterRouter(r *mux.Router){
 	// Auth
 	register := new(auth.RegisterController)
 	r.HandleFunc("/register", register.Index).Methods("GET").Name("auth.register")
-
+	login := new(auth.LoginController)
+	r.HandleFunc("/login", login.Index).Methods("GET").Name("auth.login")
 
 
 	// Articles
