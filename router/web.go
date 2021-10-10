@@ -5,6 +5,7 @@ import (
 	"myblog/app/http/controllers"
 	"myblog/app/http/controllers/articles"
 	"myblog/app/http/controllers/auth"
+	"myblog/app/http/middlewares"
 	"net/http"
 )
 
@@ -16,6 +17,7 @@ func RegisterRouter(r *mux.Router){
 	// Auth
 	register := new(auth.RegisterController)
 	r.HandleFunc("/register", register.Index).Methods("GET").Name("auth.register")
+	r.HandleFunc("/register", register.Register).Methods("POST").Name("auth.register")
 	login := new(auth.LoginController)
 	r.HandleFunc("/login", login.Index).Methods("GET").Name("auth.login")
 
@@ -28,4 +30,6 @@ func RegisterRouter(r *mux.Router){
 	r.PathPrefix("/css/").Handler(http.FileServer(http.Dir("./public")))
 	r.PathPrefix("/js/").Handler(http.FileServer(http.Dir("./public")))
 
+	// Session服务
+	r.Use(middlewares.StartSession)
 }
