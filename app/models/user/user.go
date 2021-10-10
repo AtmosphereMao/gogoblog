@@ -1,8 +1,11 @@
 package user
 
 import (
+	"encoding/base64"
+	"golang.org/x/crypto/scrypt"
 	"myblog/app/models"
 	"myblog/core"
+	"myblog/lib/config"
 	"myblog/lib/helper"
 )
 
@@ -16,6 +19,8 @@ type User struct {
 }
 
 func (user *User)Create() (error){
+	dk, _ := scrypt.Key([]byte(user.Password), []byte(helper.ToString(config.Env("PASSWORD_SALT"))), 1<<15, 8, 1, 32)
+	user.Password = base64.StdEncoding.EncodeToString(dk)
 	if err := core.DB.Create(&user).Error;err != nil{
 		helper.LogError(err)
 		return err
