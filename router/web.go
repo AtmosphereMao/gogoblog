@@ -21,6 +21,7 @@ func RegisterRouter(r *mux.Router){
 	login := new(auth.LoginController)
 	r.HandleFunc("/login", login.Index).Methods("GET").Name("auth.login")
 
+	r.HandleFunc("/logout", login.Logout).Methods("POST").Name("auth.logout")
 
 	// Articles
 	ac := new(articles.ArticlesController)

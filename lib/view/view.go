@@ -3,7 +3,9 @@ package view
 import (
 	"html/template"
 	"io"
+	"myblog/app/http/service/auth"
 	"myblog/core"
+	"myblog/lib/flash"
 	"myblog/lib/helper"
 	"path/filepath"
 	"strings"
@@ -21,6 +23,10 @@ func RenderSimple(w io.Writer, data D, templateFiles ...string){
 
 func RenderTemplate(w io.Writer, name string, data D, templateFiles ...string){
 	var err error
+
+	data["isLogin"] = auth.Check()
+	data["flash"] = flash.All();
+
 	allFiles := getTemplateFiles(templateFiles...)
 	tmpl, err := template.New("").Funcs(template.FuncMap{
 		"RouteName2URL": core.Name2URL,
