@@ -5,7 +5,7 @@ import (
 	"myblog/app/models/user"
 )
 
-func rules() (govalidator.MapData){
+func register_rules() (govalidator.MapData){
 	return govalidator.MapData{
 		"name": 	[]string{"required","alpha_num","between:3,10", "not_exists:users,name"},
 		"email":	[]string{"required","email","between:4,30","not_exists:users,email"},
@@ -14,7 +14,7 @@ func rules() (govalidator.MapData){
 	}
 }
 
-func messages() (govalidator.MapData){
+func register_messages() (govalidator.MapData){
 	return govalidator.MapData{
 		"name": []string{
 			"required:用户名不能为空",
@@ -39,9 +39,9 @@ func messages() (govalidator.MapData){
 func RegisterVaildate(data user.User) map[string][]string{
 	opts:= govalidator.Options{
 		Data: &data,
-		Rules: rules(),
+		Rules: register_rules(),
 		TagIdentifier: "valid",
-		Messages: messages(),
+		Messages: register_messages(),
 	}
 	errs := govalidator.New(opts).ValidateStruct()
 

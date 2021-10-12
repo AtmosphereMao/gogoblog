@@ -2,10 +2,9 @@ package user
 
 import (
 	"encoding/base64"
-	"golang.org/x/crypto/scrypt"
+	"github.com/elithrar/simple-scrypt"
 	"myblog/app/models"
 	"myblog/core"
-	"myblog/lib/config"
 	"myblog/lib/helper"
 )
 
@@ -19,11 +18,19 @@ type User struct {
 }
 
 func (user *User)Create() (error){
-	dk, _ := scrypt.Key([]byte(user.Password), []byte(helper.ToString(config.Env("PASSWORD_SALT"))), 1<<15, 8, 1, 32)
+	dk, _ := scrypt.GenerateFromPassword([]byte(user.Password),scrypt.DefaultParams)
 	user.Password = base64.StdEncoding.EncodeToString(dk)
 	if err := core.DB.Create(&user).Error;err != nil{
 		helper.LogError(err)
 		return err
 	}
 	return nil
+}
+
+func (user *User)GetByEmail()(User, error){
+	var _user User
+	if err := core.DB.Where("email = ?", user.Email).First(&_user).Error; err != nil{
+		return _user, err
+	}
+	return _user, nil
 }

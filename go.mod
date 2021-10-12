@@ -3,6 +3,7 @@ module myblog
 go 1.17
 
 require (
+	github.com/elithrar/simple-scrypt v1.3.0
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/sessions v1.2.1
 	github.com/spf13/cast v1.4.1
