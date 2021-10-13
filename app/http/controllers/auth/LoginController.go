@@ -22,9 +22,9 @@ func (*LoginController)Login(w http.ResponseWriter, r *http.Request){
 		Password: 			r.PostFormValue("password"),
 	}
 	errs := auth.LoginStore(_user)
-	fmt.Println(errs)
 	if len(errs) > 0 {
 		if _,flag := errs["Status"];flag {
+			flash.Danger(errs["messages"][0])
 			w.WriteHeader(http.StatusInternalServerError)
 			fmt.Fprint(w, "登录失败，请联系管理员")
 		}else{

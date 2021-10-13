@@ -21,8 +21,11 @@ func RegisterRouter(r *mux.Router){
 	login := new(auth.LoginController)
 	r.HandleFunc("/login", login.Index).Methods("GET").Name("auth.login")
 	r.HandleFunc("/login", login.Login).Methods("POST").Name("auth.login")
-
 	r.HandleFunc("/logout", login.Logout).Methods("POST").Name("auth.logout")
+	forgetPassword := new(auth.ForgetPasswordController)
+	r.HandleFunc("/forget", forgetPassword.Index).Methods("GET").Name("auth.forget")
+	r.HandleFunc("/forget", forgetPassword.Find).Methods("POST").Name("auth.forget")
+	r.HandleFunc("/forget/reset", forgetPassword.Reset).Methods("GET").Name("auth.forget.reset")
 
 	// Articles
 	ac := new(articles.ArticlesController)

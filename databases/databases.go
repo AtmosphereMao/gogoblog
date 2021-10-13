@@ -4,6 +4,7 @@ import (
 	"gorm.io/gorm"
 	"myblog/app/models/article"
 	"myblog/app/models/category"
+	"myblog/app/models/password_resets"
 	"myblog/app/models/user"
 	"myblog/core"
 	"myblog/lib/config"
@@ -27,5 +28,6 @@ func migration(db *gorm.DB){
 	db.AutoMigrate(
 		&user.User{},
 		&article.Article{},
-		&category.Category{})
+		&category.Category{},
+		&password_resets.PasswordResets{})
 }
