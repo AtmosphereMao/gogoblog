@@ -13,7 +13,7 @@ func init(){
 	config.Initialize()
 }
 
-func main(){
+func main(){	
 	databases.InitDB()
 	route := router.InitRoute()
 	http.ListenAndServe(":" +helper.ToString(C.Env("app.port")), middlewares.RemoveTrailingSlash(route))

@@ -26,7 +26,7 @@ func Send(pr password_resets.PasswordResets)(error){
 	header["MIME-Version"] = "1.0"
 	header["Content-Type"] = "text/html; charset=UTF-8"
 	header["Content-Transfer-Encoding"] = "base64"
-	body := "点击链接修改您的账号的密码" + core.Name2URL("auth.forget.reset")
+	body := "点击链接修改您的账号的密码" + core.Name2URL("auth.forget.reset") + "?token=" + pr.Token
 	message := ""
 	for k, v := range header {
 		message += fmt.Sprintf("%s: %s\r\n", k, v)

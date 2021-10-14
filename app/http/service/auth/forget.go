@@ -32,6 +32,8 @@ func RequestFindPassword(_user user.User)(map[string][]string){
 		}else{
 			return map[string][]string{"messages":{errors.New("内部错误，请稍后再试。").Error()}, "Status":{"1"}}
 		}
+	}else{
+		_pr, _ = _pr.GetByEmail()
 	}
 	if err := sendmail.Send(_pr); err != nil{
 		return map[string][]string{"messages":{errors.New("内部错误，请稍后再试。").Error()}, "Status":{"1"}}
