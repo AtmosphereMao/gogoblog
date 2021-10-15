@@ -28,3 +28,18 @@ func (pr *PasswordResets)GetByEmail()(PasswordResets, error){
 	return _pr, nil
 }
 
+func (pr *PasswordResets)GetByToken()(PasswordResets, error){
+	var _pr PasswordResets
+	if err := core.DB.Where("token = ?", pr.Token).First(&_pr).Error; err!=nil{
+		return _pr, err
+	}
+	return _pr, nil
+}
+
+func (pr *PasswordResets)DeleteByEmail()(error){
+	if err := core.DB.Where("email = ?", pr.Email).Delete(&pr).Error; err != nil{
+		helper.LogError(err)
+		return err
+	}
+	return nil
+}

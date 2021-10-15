@@ -40,3 +40,20 @@ func RequestFindPassword(_user user.User)(map[string][]string){
 	}
 	return nil
 }
+
+func ResetTokenIsExist(_pr password_resets.PasswordResets) (error, string){
+	if p, err := _pr.GetByToken(); err != nil{
+		if err == gorm.ErrRecordNotFound{
+			err = errors.New("无法找到该内容")
+		}else{
+			err = errors.New("发生内部错误")
+		}
+		return err, ""
+	}else{
+		return nil, p.Email
+	}
+}
+
+func RequestResetPassword(_user user.User, _pr password_resets.PasswordResets){
+
+}

@@ -34,3 +34,13 @@ func (user *User)GetByEmail()(User, error){
 	}
 	return _user, nil
 }
+
+func (user *User)EditPassword()(error){
+	dk, _ := scrypt.GenerateFromPassword([]byte(user.Password),scrypt.DefaultParams)
+	user.Password = base64.StdEncoding.EncodeToString(dk)
+	if err := core.DB.Save(&user).Error;err != nil{
+		helper.LogError(err)
+		return err
+	}
+	return nil
+}

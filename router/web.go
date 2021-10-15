@@ -26,6 +26,7 @@ func RegisterRouter(r *mux.Router){
 	r.HandleFunc("/forget", forgetPassword.Index).Methods("GET").Name("auth.forget")
 	r.HandleFunc("/forget", forgetPassword.Find).Methods("POST").Name("auth.forget")
 	r.HandleFunc("/forget/reset", forgetPassword.Reset).Methods("GET").Name("auth.forget.reset")
+	r.HandleFunc("/forget/reset", forgetPassword.ResetStore).Methods("POST").Name("auth.forget.reset")
 
 	// Articles
 	ac := new(articles.ArticlesController)
