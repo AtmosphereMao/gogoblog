@@ -13,8 +13,8 @@ func SetRoute(r *mux.Router){
 	route = r
 }
 
-func Name2URL(routeName string, pairs ...string) string{
-	url, err := route.Get(routeName).URL(pairs...)
+func Name2URL(routeName string, pairs ...interface{}) string{
+	url, err := route.Get(routeName).URL(helper.ToStrings(pairs...)...)
 	if err != nil{
 		helper.LogError(err)
 		return ""

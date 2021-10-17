@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 	"myblog/app/http/requests"
 	"myblog/app/models/user"
+	"myblog/lib/helper"
 	"myblog/lib/session"
 )
 
@@ -25,6 +26,10 @@ func Login(_user user.User){
 
 func Check() bool{
 	return len(_getUID()) > 0
+}
+
+func GetId() int{
+	return helper.ToInt(session.Get("uid"))
 }
 
 func Logout(){

@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"io"
 	"myblog/app/http/service/auth"
+	"myblog/app/models/user"
 	"myblog/core"
 	"myblog/lib/flash"
 	"myblog/lib/helper"
@@ -25,7 +26,14 @@ func RenderTemplate(w io.Writer, name string, data D, templateFiles ...string){
 	var err error
 
 	data["isLogin"] = auth.Check()
-	data["flash"] = flash.All();
+	data["flash"] = flash.All()
+
+	if auth.Check(){
+		u, err := user.GetById(auth.GetId())
+		helper.LogError(err)
+		data["auth"] = u
+	}
+
 
 	allFiles := getTemplateFiles(templateFiles...)
 	tmpl, err := template.New("").Funcs(template.FuncMap{

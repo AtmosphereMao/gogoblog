@@ -14,11 +14,12 @@ func ToString(value ...interface{}) string {
 	return cast.ToString(value[0])
 }
 
-func ToStrings(value ...interface{}) interface{} {
+func ToStrings(value ...interface{}) []string{
+	var result []string
 	for i:=0;i<len(value);i++{
-		value[i] = cast.ToString(value[i])
+		result = append(result, cast.ToString(value[i]))
 	}
-	return value
+	return result
 }
 
 func ToInt(value ...interface{}) int {

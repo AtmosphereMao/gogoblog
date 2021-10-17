@@ -5,6 +5,7 @@ import (
 	"myblog/app/http/controllers"
 	"myblog/app/http/controllers/articles"
 	"myblog/app/http/controllers/auth"
+	_info "myblog/app/http/controllers/info"
 	"myblog/app/http/middlewares"
 	"net/http"
 )
@@ -27,6 +28,10 @@ func RegisterRouter(r *mux.Router){
 	r.HandleFunc("/forget", forgetPassword.Find).Methods("POST").Name("auth.forget")
 	r.HandleFunc("/forget/reset", forgetPassword.Reset).Methods("GET").Name("auth.forget.reset")
 	r.HandleFunc("/forget/reset", forgetPassword.ResetStore).Methods("POST").Name("auth.forget.reset")
+
+	// Info
+	info := new(_info.InfoController)
+	r.HandleFunc("/info/{id:[0-9]+}", middlewares.Authenticate(info.Index)).Methods("GET").Name("info")
 
 	// Articles
 	ac := new(articles.ArticlesController)

@@ -44,3 +44,15 @@ func (user *User)EditPassword()(error){
 	}
 	return nil
 }
+
+func (user *User) Link() string {
+	return core.Name2URL("info", "id", user.GetStringID())
+}
+
+func GetById(id int) (User, error){
+	var _user User
+	if err := core.DB.First(&_user, id).Error; err != nil{
+		return _user, err
+	}
+	return _user, nil
+}
