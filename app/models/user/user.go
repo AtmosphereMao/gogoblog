@@ -35,14 +35,10 @@ func (user *User)GetByEmail()(User, error){
 	return _user, nil
 }
 
-func (user *User)EditPassword()(error){
+func (user *User)EditPassword() error {
 	dk, _ := scrypt.GenerateFromPassword([]byte(user.Password),scrypt.DefaultParams)
 	user.Password = base64.StdEncoding.EncodeToString(dk)
-	if err := core.DB.Save(&user).Error;err != nil{
-		helper.LogError(err)
-		return err
-	}
-	return nil
+	return user.Edit()
 }
 
 func (user *User) Link() string {
@@ -55,4 +51,12 @@ func GetById(id int) (User, error){
 		return _user, err
 	}
 	return _user, nil
+}
+
+func (user *User) Edit() error{
+	if err := core.DB.Save(&user).Error;err != nil{
+		helper.LogError(err)
+		return err
+	}
+	return nil
 }

@@ -32,6 +32,7 @@ func RegisterRouter(r *mux.Router){
 	// Info
 	info := new(_info.InfoController)
 	r.HandleFunc("/info/{id:[0-9]+}", middlewares.Authenticate(info.Index)).Methods("GET").Name("info")
+	r.HandleFunc("/info/{id:[0-9]+}", middlewares.Authenticate(info.Edit)).Methods("POST").Name("info")
 
 	// Articles
 	ac := new(articles.ArticlesController)

@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-func RequestFindPassword(_user user.User)(map[string][]string){
+func RequestFindPassword(_user user.User) map[string][]string {
 	if _, err := _user.GetByEmail(); err != nil{
 		if err == gorm.ErrRecordNotFound{
 			return map[string][]string{"email":{errors.New("邮箱不存在。").Error()}}
